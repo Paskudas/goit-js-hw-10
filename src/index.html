@@ -6,15 +6,22 @@
     <title>Котопоиск</title>
     <link 
     rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
-  /> 
-    <link rel "stylesheet" href="./css/style.css" />
+    href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" /> 
+    <link
+    rel="stylesheet"
+    href="https://unpkg.com/slim-select@latest/dist/slimselect.css"      
+    />  
+    <link rel="stylesheet" href="./css/style.css" />
   </head>
   <body>
-    <select class="breed-select"></select>
-    <p class="loader">Loading data, please wait...</p>
+    <main>
+    <div class="container">
+    <select class="breed-select">      
+    </select>    
     <p class="error">Oops! Something went wrong! Try reloading the page!</p>
-    <div class="cat-info"></div>
+    <div class="cat-info"> <p class="loader"><span class="loader"></span> data, please wait...</p></div>
+    </div>
+    </main>
 
     <script src="./js/index.js" type="module"></script>
   </body>
