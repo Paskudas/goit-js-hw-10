@@ -8,29 +8,32 @@ const error = document.querySelector('.error');
 const catInfo = document.querySelector('.cat-info');
 
 // При загрузке страницы выполняем запрос за коллекцией пород
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+  try {
   loader.style.display = 'block';
   breedSelect.style.display = 'none';
   error.style.display = 'none';
   catInfo.style.display = 'none';
 
-  fetchBreeds()
-    .then(breeds => {
-      breeds.forEach(breed => {
-        const option = document.createElement('option');
-        option.value = breed.id;
-        option.textContent = breed.name;
-        breedSelect.appendChild(option);
-      });
+  const breeds = await fetchBreeds();
 
-      loader.style.display = 'none';
-      breedSelect.style.display = 'block';
-    })
-    .catch(() => {
-      loader.style.display = 'none';
-      error.style.display = 'block';
-    });
+const breedOptions = breeds.map(breed => ({
+  value: breed.id,
+  text: breed.name
+}));
+
+new SlimSelect({
+  select: breedSelect,
+  data: breedOptions
 });
+
+loader.style.display = 'none';
+breedSelect.style.display = 'block';
+} catch (error) {
+  loader.style.display = 'none';
+  error.style.display = 'block';
+  }
+  });
 
 // Обработчик изменения выбора породы
 breedSelect.addEventListener('change', () => {
