@@ -1,4 +1,4 @@
-import SlimSelect from 'slim-select'
+import SlimSelect from 'slim-select';
 import { Notify } from 'notiflix';
 import { fetchBreeds, fetchCatByBreed } from './cat-api.js';
 
@@ -10,30 +10,36 @@ const catInfo = document.querySelector('.cat-info');
 // При загрузке страницы выполняем запрос за коллекцией пород
 document.addEventListener('DOMContentLoaded', async () => {
   try {
-  loader.style.display = 'block';
-  breedSelect.style.display = 'none';
-  error.style.display = 'none';
-  catInfo.style.display = 'none';
+    loader.style.display = 'block';
+    breedSelect.style.display = 'none';
+    error.style.display = 'none';
+    catInfo.style.display = 'none';
 
-  const breeds = await fetchBreeds();
+    const breeds = await fetchBreeds();
 
-const breedOptions = breeds.map(breed => ({
-  value: breed.id,
-  text: breed.name
-}));
+    const breedOptions = [
+      {
+        value: '',
+        text: 'Choose your breed'
+      },
+      ...breeds.map(breed => ({
+        value: breed.id,
+        text: breed.name
+      }))
+    ];
 
-new SlimSelect({
-  select: breedSelect,
-  data: breedOptions
-});
+    new SlimSelect({
+      select: breedSelect,
+      data: breedOptions
+    });
 
-loader.style.display = 'none';
-breedSelect.style.display = 'block';
-} catch (error) {
-  loader.style.display = 'none';
-  error.style.display = 'block';
+    loader.style.display = 'none';
+    breedSelect.style.display = 'block';
+  } catch (error) {
+    loader.style.display = 'none';
+    error.style.display = 'block';
   }
-  });
+});
 
 // Обработчик изменения выбора породы
 breedSelect.addEventListener('change', () => {
